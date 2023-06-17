@@ -3,8 +3,8 @@ import recipeService from "../services/recipeService";
 
 export const createRecipes = async (req: Request, res: Response) => {
   try {
-    // console.log(req.body);
-    console.log(req.files);
+    console.log(req.body);
+    /*console.log(req.files);
     const files = Array.isArray(req.files) ? req.files : [];
     const creator = req.body.creator;
     const title = req.body.title;
@@ -44,7 +44,7 @@ export const createRecipes = async (req: Request, res: Response) => {
 
     const newRecipe = await recipeService.create(recipeInput);
 
-    res.status(201).json(newRecipe);
+    res.status(201).json(newRecipe);*/
   } catch (error) {
     console.error(error);
     res.status(500).json({ message: "서버에 문제가 발생했습니다." });
