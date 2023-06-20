@@ -8,22 +8,21 @@ export interface Ingredient {
 }
 
 export interface Step {
+  stepNum: number;
   stepDesc: string;
   imgSrc: string;
 }
 
 export interface Recipe {
-  creator: User;
+  userInfo: User;
   title: string;
   desc: string;
   category: string[];
   cookingInfo: string[];
-  cookingTip?: string;
   mainImg: string;
-  ingredientList: Ingredient[];
+  ingredient: Ingredient[];
   stepList: Step[];
   completedImgs: string[];
-  reviews?: Review[];
   viewCount: number;
 }
 

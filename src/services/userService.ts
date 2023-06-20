@@ -2,9 +2,9 @@ import User from "../models/user";
 import { UserInput } from "../interface/User";
 
 // 회원정보 생성
-const create = async ({ name, profileImg, password, email }: UserInput) => {
+const create = async ({ name, avatarImg, password, email }: UserInput) => {
   try {
-    const user = new User({ name, profileImg, password, email });
+    const user = new User({ name, avatarImg, password, email });
     await user.save();
     return user;
   } catch (error) {

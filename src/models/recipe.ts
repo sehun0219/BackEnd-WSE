@@ -1,36 +1,38 @@
-import mongoose, { Document, Schema } from "mongoose";
-import { Recipe } from "../interface/Recipe";
+import mongoose from "mongoose";
 
-interface RecipeDocument extends Recipe, Document {}
-
-// Ingredient 스키마
-const IngredientSchema = new Schema({
-  ingredient: { type: String, required: true },
-  quantity: { type: String, required: true },
+const cookingStepSchema = new mongoose.Schema({
+  imgScr: String,
+  stepDesc: String,
+  id: Number,
 });
 
-// Step 스키마
-const StepSchema = new Schema({
-  stepDesc: { type: String, required: true },
-  imgSrc: { type: String, required: true },
+const cookingInfoSchema = new mongoose.Schema({
+  servingSize: String,
+  Time: String,
+  Difficulty: String,
 });
 
-// Recipe 스키마
-const RecipeSchema = new Schema({
-  creator: { type: Schema.Types.ObjectId, ref: "User", required: true },
-  title: { type: String, required: true },
-  desc: { type: String, required: true },
-  category: { type: [String], required: true },
-  cookingInfo: { type: [String], required: true },
-  cookingTip: String,
-  mainImg: { type: String, required: true },
-  ingredientList: { type: [IngredientSchema], required: true },
-  stepList: { type: [StepSchema], required: true },
-  completedImgs: { type: [String], required: true },
-  reviews: [{ type: Schema.Types.ObjectId, ref: "Review" }],
-  viewCount: { type: Number, default: 0 },
+const ingredientSchema = new mongoose.Schema({
+  name: String,
+  quantity: String,
 });
 
-const RecipeModel = mongoose.model<RecipeDocument>("Recipe", RecipeSchema);
+const compImgSchema = new mongoose.Schema({
+  url: String,
+});
 
-export { RecipeModel };
+const recipeSchema = new mongoose.Schema({
+  userInfo: Object,
+  title: String,
+  desc: String,
+  category: String,
+  cookingIfo: [cookingInfoSchema],
+  mainImg: String,
+  ingredient: [ingredientSchema],
+  cookingStep: [cookingStepSchema], // 각 요리 단계를 위한 별도의 스키마를 사용합니다.
+  completedImgs: [compImgSchema], // 완성된 요리의 이미지 URL 배열
+});
+
+const Recipe = mongoose.model("Recipe", recipeSchema);
+
+export default Recipe;

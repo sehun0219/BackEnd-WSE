@@ -9,7 +9,7 @@ import User from "../models/user";
 // 회원 가입 (signup)
 export const signUp = async (req: Request, res: Response) => {
   try {
-    const { name, password, profileImg, email }: UserInput = req.body;
+    const { name, password, email }: UserInput = req.body;
     if (!name) {
       console.log(name);
       return res.status(400).send("Name is required");
@@ -21,6 +21,8 @@ export const signUp = async (req: Request, res: Response) => {
     if (!isValidPassword(req.body.password)) {
       return res.status(400).send("Password is not valid");
     }
+    // Check if the image was uploaded
+    const avatarImg = req.file ? `${req.file.path}` : "";
 
     // Password hashing
     const saltRounds = 10;
@@ -28,7 +30,7 @@ export const signUp = async (req: Request, res: Response) => {
     const saveUser = await userService.create({
       name,
       password: hashedPassword,
-      profileImg,
+      avatarImg,
       email,
     });
     const token = jwt.sign({ userId: saveUser._id }, "userSecretKey", {
@@ -62,7 +64,6 @@ export const login = async (req: Request, res: Response) => {
       expiresIn: "1h",
     });
     // 5. send token to the client
-
     return res.status(200).json({ token, user });
   } catch (err) {
     console.error(err);
@@ -74,9 +75,7 @@ export const login = async (req: Request, res: Response) => {
 export const profile = (req: Request, res: Response) => {
   res.send("회원정보페이지");
 };
-
 export const user = (req: Request, res: Response) => {};
-
 // 회원정보수정 (user edit)
 export const userEdit = (req: Request, res: Response) => {};
 // 회원삭제 (Remove user)

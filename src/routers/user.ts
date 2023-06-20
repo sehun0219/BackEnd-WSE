@@ -6,7 +6,7 @@ const router = Router();
 const upload = multer({
   storage: multer.diskStorage({
     destination: function (req, file, cb) {
-      cb(null, "./test/");
+      cb(null, "public/AvatarImg");
     },
     filename: function (req, file, cb) {
       const email = req.body.email;
@@ -22,6 +22,5 @@ const upload = multer({
 
 router.post("/sign-up", upload.single("avatarImg"), signUp);
 router.post("/login", login);
-router.get("/profile", profile);
 
 export default router;
