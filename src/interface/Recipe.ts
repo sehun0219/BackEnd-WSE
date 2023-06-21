@@ -1,5 +1,4 @@
 import { User } from "./User";
-import { Review } from "./Review";
 import { Document } from "mongoose";
 
 export interface Ingredient {
@@ -14,16 +13,16 @@ export interface Step {
 }
 
 export interface Recipe {
-  userInfo: User;
+  userInfo: string;
   title: string;
   desc: string;
-  category: string[];
-  cookingInfo: string[];
+  category: string;
+  cookingInfo: Document;
   mainImg: string;
   ingredient: Ingredient[];
-  stepList: Step[];
+  stepList: Document[];
   completedImgs: string[];
   viewCount: number;
 }
 
-export interface RecipeModel extends Recipe, Document {}
+export interface RecipeModel extends Recipe {}
