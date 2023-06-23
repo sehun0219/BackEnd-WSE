@@ -1,4 +1,4 @@
-import express, { Request, Response, NextFunction } from "express";
+import express from "express";
 import { connectDB } from "./config/db";
 import "./models/user";
 import "./models/review";
@@ -7,7 +7,6 @@ import router from "./routers";
 import cors from "cors";
 
 const app = express();
-
 connectDB();
 app.use(cors());
 app.use(express.json());

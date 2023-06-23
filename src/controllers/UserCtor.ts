@@ -22,7 +22,7 @@ export const signUp = async (req: Request, res: Response) => {
       return res.status(400).send("Password is not valid");
     }
     // Check if the image was uploaded
-    const avatarImg = req.file ? `${req.file.path}` : "";
+    const avatarImg = req.file ? `/AvatarImg/${req.file.filename}` : "";
 
     // Password hashing
     const saltRounds = 10;
@@ -69,6 +69,11 @@ export const login = async (req: Request, res: Response) => {
     console.error(err);
     return res.status(500).json({ message: "Server error" });
   }
+};
+
+//좋아요 모음 보여주는 페이지
+export const liked = (req: Request, res: Response) => {
+  return res.send("나중에 보여줄 페이지 liked");
 };
 
 // 회원정보보기 (user information)

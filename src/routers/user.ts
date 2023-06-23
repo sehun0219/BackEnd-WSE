@@ -1,5 +1,5 @@
 import { Router } from "express";
-import { signUp, login, profile } from "../controllers/UserCtor";
+import { signUp, login, profile, liked } from "../controllers/UserCtor";
 import multer from "multer";
 const router = Router();
 
@@ -22,5 +22,6 @@ const upload = multer({
 
 router.post("/sign-up", upload.single("avatarImg"), signUp);
 router.post("/login", login);
+router.get("/liked", liked);
 
 export default router;

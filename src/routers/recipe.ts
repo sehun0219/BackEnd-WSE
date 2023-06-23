@@ -1,10 +1,16 @@
 import { Router } from "express";
 import multer from "multer";
-import { createRecipes } from "../controllers/RecipeCtor";
+import {
+  createRecipes,
+  readRecipes,
+  getViewCount,
+  readRecipeDetail,
+  readSearchRecipes,
+} from "../controllers/RecipeCtor";
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
-    cb(null, "uploads/");
+    cb(null, "public/uploads/");
   },
   filename: function (req, file, cb) {
     const fileName = req.body.title + "_" + file.originalname;
@@ -24,5 +30,9 @@ router.put(
   ]),
   createRecipes
 );
+
+router.get("/list", readRecipes);
+router.get("/detail", readRecipeDetail);
+router.get("/search", readSearchRecipes);
 
 export default router;
