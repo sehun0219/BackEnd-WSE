@@ -3,17 +3,18 @@ import multer from "multer";
 import {
   createRecipes,
   readRecipes,
-  getViewCount,
+  readViewCount,
   readRecipeDetail,
   readSearchRecipes,
 } from "../controllers/RecipeCtor";
+import { ViewCount } from "../models/recipe";
 
 const storage = multer.diskStorage({
   destination: function (req, file, cb) {
     cb(null, "public/uploads/");
   },
   filename: function (req, file, cb) {
-    const fileName = req.body.title + "_" + file.originalname;
+    const fileName = req.body.name + "_" + file.originalname;
     cb(null, fileName);
   },
 });
@@ -34,5 +35,6 @@ router.put(
 router.get("/list", readRecipes);
 router.get("/detail", readRecipeDetail);
 router.get("/search", readSearchRecipes);
+router.get(":id", readViewCount);
 
 export default router;

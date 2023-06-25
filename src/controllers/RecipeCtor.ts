@@ -10,7 +10,7 @@ import {
 export const createRecipes = async (req: Request, res: Response) => {
   try {
     req.body.ingredient = JSON.parse(req.body.ingredient);
-    console.log("프론트에서 넘어오는 데이터", req.body);
+
     const files = JSON.parse(JSON.stringify(req.files));
     const info = req.body.cookingInfo.split(",");
 
@@ -54,25 +54,23 @@ export const createRecipes = async (req: Request, res: Response) => {
 export const readRecipes = async (req: Request, res: Response) => {
   const recipeList = await recipeService.read();
   res.send(recipeList);
-  console.log(recipeList);
 };
 
 export const readRecipeDetail = async (req: Request, res: Response) => {
-  console.log(req.query.id);
   const detail = await recipeService.readDetail(req.query.id);
   res.send(detail);
-  console.log("서버잘들어옴");
 };
 
-export const getViewCount = async (req: Request, res: Response) => {
+export const readViewCount = async (req: Request, res: Response) => {
   try {
-    const count = await ViewCount.findById(req.params._id);
-    if (count) {
-      count.viewCount += 1;
-      await count.save();
-      res.json(count);
+    const recipe = await ViewCount.findById(req.params._id);
+    console.log("1111", req.params);
+    if (!recipe) {
+      res.status(404).send("Recipe not found");
     } else {
-      res.status(404).send("recipe not found");
+      recipe.viewCount += 1;
+      await recipe.save();
+      res.send(recipe);
     }
   } catch (err) {
     res.status(500).send(err);
@@ -80,8 +78,6 @@ export const getViewCount = async (req: Request, res: Response) => {
 };
 
 export const readSearchRecipes = async (req: Request, res: Response) => {
-  console.log(req.query.keyword);
   const search = await recipeService.readSearch(req.query.keyword);
   res.send(search);
-  console.log("서버잘들어옴");
 };
