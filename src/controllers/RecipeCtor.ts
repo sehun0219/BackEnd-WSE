@@ -81,3 +81,5 @@ export const readSearchRecipes = async (req: Request, res: Response) => {
   const search = await recipeService.readSearch(req.query.keyword);
   res.send(search);
 };
+
+export const postRecipeEdit = async (req: Request, res: Response) => {};

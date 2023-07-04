@@ -37,4 +37,6 @@ router.get("/detail", readRecipeDetail);
 router.get("/search", readSearchRecipes);
 router.get(":id", readViewCount);
 
+// router.post("/edit", postRecipeEdit);
+
 export default router;
