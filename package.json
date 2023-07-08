@@ -9,7 +9,7 @@
     "build": "tsc",
     "postinstall": "npm run build",
     "dev": "nodemon --watch \"src/**/*.ts\" --exec \"ts-node\" src/app.ts",
-    "heroku-postbuild": "NPM_CONFIG_PRODUCTION=false npm install --prefix client && npm run build --prefix client"
+    "heroku-postbuild": "YARN_PRODUCTION=false"
   },
   "engines": {
     "node": "18.x",
